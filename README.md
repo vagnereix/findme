@@ -5,8 +5,7 @@
 <p align="center">
   <a href="#-projeto">Sobre o Projeto</a> •
   <a href="#-guia-de-instalação-e-execução">Guia de instalação</a> •
-  <a href="#-tecnologias">Tecnologias</a> •
-  <a href="#-layout">Layout</a>
+  <a href="#-tecnologias">Tecnologias</a>
 </p>
 
 <h1 align="center">
