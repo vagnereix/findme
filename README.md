@@ -9,14 +9,12 @@
   <a href="#-layout">Layout</a>
 </p>
 
-<div styles="display: flex;">
-    <h1 align="center">
-        <img alt="Letmeask" src="./public/imgs/no-dark.png" width="50%"/>
-    </h1>
-    <h1 align="center">
-        <img alt="Letmeask" src="./public/imgs/dark-mode.png" width="50%" />
-    </h1>
-<div>
+<h1 align="center">
+    <img alt="Letmeask" src="./public/imgs/no-dark.png" width="80%"/>
+</h1>
+<h1 align="center">
+    <img alt="Letmeask" src="./public/imgs/dark-mode.png" width="80%" />
+</h1>
 
 <br>
 
