@@ -4,9 +4,11 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
+import cx from 'classnames';
 
-import styles from "../styles/home.module.scss";
+import { useEffect, useRef, useState } from 'react';
+
+import styles from '../styles/home.module.scss';
 
 type userProps = {
   name: string;
@@ -23,20 +25,30 @@ export default function Home({
   company,
   gitHub,
 }: userProps) {
-  function handleChangeTheme() {
-    const section = document.querySelector("#home_section__YsWKR");
+  const [themeDark, setThemeDark] = useState(false);
 
-    section.classList.toggle(styles.dark);
+  function handleChangeTheme() {
+    setThemeDark(!themeDark);
+    localStorage.setItem('@themeDarkVR', (!themeDark).toString());
   }
+
+  useEffect(() => {
+    const darkThemeStoraged = localStorage.getItem('@themeDarkVR');
+    setThemeDark(darkThemeStoraged === 'true' ? true : false);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Portolio Card | Profile</title>
+        <title>Vagner | Web Developer</title>
       </Head>
-      <section id={styles.section}>
+
+      <section
+        id={styles.section}
+        className={cx({ [styles.dark]: themeDark === true })}
+      >
         <div className={styles.card}>
-          <div className={styles.toggle} onClick={handleChangeTheme}></div>
+          <div className={styles.toggle} onClick={handleChangeTheme} />
           <div className={styles.content}>
             <div className={styles.imgText}>
               <div className={styles.imgBx}>
@@ -44,8 +56,8 @@ export default function Home({
                   width={120}
                   height={120}
                   src={avatar}
-                  objectFit="cover"
-                  alt="Profile picture"
+                  objectFit='cover'
+                  alt='Profile picture'
                 />
               </div>
               <h3>
@@ -54,34 +66,34 @@ export default function Home({
             </div>
             <ul className={styles.sci}>
               <li>
-                <a href="https://www.facebook.com/vagnereis10/">
+                <a href='https://www.facebook.com/vagnereis10/'>
                   <i
                     className={`fa fa-facebook ${styles.fa}`}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   ></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.twitter.com/vagnereix_">
+                <a href='https://www.twitter.com/vagnereix_'>
                   <i
                     className={`fa fa-twitter ${styles.fa}`}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   ></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/in/vagnereix/">
+                <a href='https://www.linkedin.com/in/vagnereix/'>
                   <i
                     className={`fa fa-linkedin ${styles.fa}`}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   ></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/vagnereix/">
+                <a href='https://www.instagram.com/vagnereix/'>
                   <i
                     className={`fa fa-instagram ${styles.fa}`}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   ></i>
                 </a>
               </li>
@@ -89,7 +101,7 @@ export default function Home({
                 <a href={gitHub}>
                   <i
                     className={`fa fa-github ${styles.fa}`}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   ></i>
                 </a>
               </li>
@@ -102,7 +114,7 @@ export default function Home({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios.get("https://api.github.com/users/vagnereix");
+  const { data } = await axios.get('https://api.github.com/users/vagnereix');
 
   const userData = {
     name: data.name,

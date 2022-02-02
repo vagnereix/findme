@@ -1,12 +1,18 @@
 #section {
-    background:linear-gradient(120deg, #1769ff, #FFFFFF);
+    background: linear-gradient(120deg, #1769ff, #FFFFFF);
     min-height: 100vh;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+
+    overflow: hidden;
     transition: background 0.3s;
+
+    @media (max-width: 480px) {
+        padding: 0 2rem;
+    }
 
     .card {
         position: relative;
@@ -22,21 +28,37 @@
 
         transition: background 0.3s;
 
+        animation: entry 1s ease-in-out forwards;
+    
+        @keyframes entry {
+            from {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            padding: 0 1rem;
+        }
+
         .toggle {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 1.25rem;
+            right: 1.25rem;
             background: #E9F5FF;
-            width: 30px;
-            height: 30px;
+            width: 1.875rem;
+            aspect-ratio: 1 / 1;
             border-radius: 50%;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
 
             cursor: pointer;
-            transition: filter 0.3s;
+            transition: all 0.3s;
             
             &::before {
                 content: '\f186';
@@ -48,6 +70,7 @@
 
             &:hover {
                 filter: brightness(0.95);
+                transform: scale(1.2) translate(.1rem, -.1rem);
             }
         }
 
@@ -56,26 +79,27 @@
         }
 
         .content, .imgText {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
+            display: grid;
+            place-items: center;
         }
 
         .imgBx {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 7.5rem;
+            aspect-ratio: 1 / 1;
             overflow: hidden;
             border-radius: 50%;
 
             margin-bottom: 1rem;
 
+            transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.75);
+
+            &:hover {
+                transform: scale(1.1);
+            }
+
             img {
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                inset: 0;
                 object-fit: cover;
             }
         }
@@ -100,6 +124,9 @@
         .sci {
             gap: 5px;
             display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
 
             list-style: none;
 
@@ -118,21 +145,21 @@
                 border-radius: 50%;
                 font-size: 1.25rem;
 
-                transition: 0.3s;
+                transition: 0.3s ease;
 
                 &::before {
                     content: '';
                     position: absolute;
-                    width: 50px;
-                    height: 50px;
+                    inset: 0;
                     background: #2FA1FF;
                     border-radius: 50%;
                     transform: scale(0);
-                    transition: 0.3s;
+                    transition: 0.3s ease-in-out;
                 }
                 
                 &:hover {
                     color: #FFF;
+                    transform: translateY(-.5rem) scale(1.2);
                 }
 
                 &:hover::before {
@@ -189,4 +216,3 @@
         color: #FFD700;
     }
 }
-
