@@ -1,14 +1,15 @@
 import axios from "axios";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from 'next';
 
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head';
+import Image from 'next/image';
 
 import cx from 'classnames';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '../styles/home.module.scss';
+import VanillaTilt from 'vanilla-tilt';
 
 type userProps = {
   name: string;
@@ -25,6 +26,7 @@ export default function Home({
   company,
   gitHub,
 }: userProps) {
+  const tilt = useRef(null);
   const [themeDark, setThemeDark] = useState(false);
 
   function handleChangeTheme() {
@@ -34,7 +36,15 @@ export default function Home({
 
   useEffect(() => {
     const darkThemeStoraged = localStorage.getItem('@themeDarkVR');
-    setThemeDark(darkThemeStoraged === 'true' ? true : false);
+    setThemeDark(darkThemeStoraged === 'true');
+
+    VanillaTilt.init(tilt.current, {
+      glare: true,
+      'max-glare': 0.3,
+      scale: 1.05,
+      speed: 1000,
+      max: 10,
+    });
   }, []);
 
   return (
@@ -47,7 +57,7 @@ export default function Home({
         id={styles.section}
         className={cx({ [styles.dark]: themeDark === true })}
       >
-        <div className={styles.card}>
+        <div className={styles.card} ref={tilt}>
           <div className={styles.toggle} onClick={handleChangeTheme} />
           <div className={styles.content}>
             <div className={styles.imgText}>
@@ -113,7 +123,7 @@ export default function Home({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await axios.get('https://api.github.com/users/vagnereix');
 
   const userData = {
@@ -126,5 +136,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: userData,
+    revalidate: 60 * 60 * 24, // 24 horas
   };
 };
