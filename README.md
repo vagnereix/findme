@@ -9,10 +9,7 @@
 </p>
 
 <h1 align="center">
-    <img alt="Letmeask" src="./public/imgs/no-dark.png" width="80%"/>
-</h1>
-<h1 align="center">
-    <img alt="Letmeask" src="./public/imgs/dark-mode.png" width="80%" />
+    <img alt="Letmeask" src="./public/imgs/updated.png" width="80%"/>
 </h1>
 
 <br>
